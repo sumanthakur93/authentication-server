@@ -15,7 +15,15 @@ dotenv.config();
 app.use(cookieParser())
 app.use(helmet());
 app.use(xss());
-app.use(cors());
+
+const corsOptions = {
+    origin: 'http://localhost:3000', // Replace with your frontend URL
+    credentials: true,
+  };
+
+
+// Use CORS middleware with options
+app.use(cors(corsOptions));
 
 
 // connecting mongo database
