@@ -41,14 +41,14 @@ exports.register = catchAsyncErrors(async (req, res, next) => {
 
   const { username, email, password } = req.body;
 
-  // const userExist = await User.findOne({ email });
-  // if (userExist) {
+  const userExist = await User.findOne({ email });
+  if (userExist) {
 
-  //   next(new ErrorHandler("User already exist with this email id", errCodes.BAD_REQUEST))
-  // }
-  // const user = new User({ username, email, password });
-  // await user.save();
-  res.status(errCodes.SUCCESS_ALL_DONE).json({ message: 'User registered successfully' });
+    next(new ErrorHandler("User already exist with this email id", errCodes.BAD_REQUEST))
+  }
+  const user = new User({ username, email, password });
+  await user.save();
+  res.status(errCodes.SUCCESS_CREATED).json({ message: 'User registered successfully' });
 
 });
 

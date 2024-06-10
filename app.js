@@ -8,18 +8,26 @@ const xss = require('xss-clean');
 const { connectDB }  = require('./config/connectDB')
 const errorMiddleware = require('./middleware/error');
 const cors = require('cors')
+const mongoSanitize = require('express-mongo-sanitize')
 
 const app = express();
 app.use(express.json());
 dotenv.config();
 app.use(cookieParser())
+
+// To Secure the header
 app.use(helmet());
+
+
+// Data Sanitization against No SQL Query injection
+
+app.use(mongoSanitize())
+
+// Data Sanitization against the site script XSS
 app.use(xss());
 
-const corsOptions = {
-    origin: 'http://localhost:3000', // Replace with your frontend URL
-    credentials: true,
-  };
+// cors option 
+const {corsOptions } = require('./utils/corsOptions')
 
 
 // Use CORS middleware with options
