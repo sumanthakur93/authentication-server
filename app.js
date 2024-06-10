@@ -47,6 +47,18 @@ const authRoute = require('./routes/authRoute');
 
 app.use('/api/v1/auth', authRoute);
 
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET PUT PATCH POST DELETE');
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "Content-Type",
+    "Authorization"
+  );
+  next();
+});
+
 // app.use(errorHandler);
 app.use(errorMiddleware);
 module.exports = app;
