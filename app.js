@@ -27,11 +27,11 @@ app.use(mongoSanitize())
 app.use(xss());
 
 // cors option 
-const {corsOptions } = require('./utils/corsOptions')
+
 
 
 // Use CORS middleware with options
-app.use(cors(corsOptions));
+app.use(cors());
 
 
 // connecting mongo database
